@@ -11,6 +11,10 @@ import "runtime"
 
 // public API
 
+// Terminal device. If you are doing weird things, you may want to
+// change this before calling Init().
+var TerminalDevice = "/dev/tty"
+
 // Initializes termbox library. This function should be called before any other functions.
 // After successful initialization, the library must be finalized using 'Close' function.
 //
@@ -23,11 +27,11 @@ import "runtime"
 func Init() error {
 	var err error
 
-	out, err = os.OpenFile("/dev/tty", syscall.O_WRONLY, 0)
+	out, err = os.OpenFile(TerminalDevice, syscall.O_WRONLY, 0)
 	if err != nil {
 		return err
 	}
-	in, err = syscall.Open("/dev/tty", syscall.O_RDONLY, 0)
+	in, err = syscall.Open(TerminalDevice, syscall.O_RDONLY, 0)
 	if err != nil {
 		return err
 	}
